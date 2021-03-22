@@ -1,0 +1,18 @@
+# Credenciais MySQL
+db_user: user
+db_user_password: 654321
+db_name: db-default
+mysql_root_password: senharoot
+
+# Informações Loja
+dominio_site: site.com.br
+diretorio_site: /var/www/{{ dominio_site }}/public_html
+email: exemplo@email.com
+
+# Usuario Projeto
+user: lojaexemplo
+group: lojaexemplo
+
+
+# SSL
+diretorio_ssl: /etc/letsencrypt/{{ dominio_site }}
