@@ -1,0 +1,14 @@
+upstream fastcgi_backend {
+   # use tcp connection
+   server  127.0.0.1:9000;
+   # or socket
+   #server   unix:/var/run/php7.2-fpm.sock;
+}
+server {
+   listen 80;
+   server_name {{ dominio_site }};
+   set $MAGE_ROOT {{ diretorio_site }};
+   root {{ diretorio_site }};
+    index index.php;
+   include /etc/nginx/magento.conf;
+}

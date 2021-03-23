@@ -9,13 +9,13 @@
 
 - name: Configurando Vhost
   template:
-    src: nginx.vhost
+    src: mag.conf
     dest: /etc/nginx/sites-available/{{ dominio_site }}.conf
 
 - name: Arquivos de Configuracao Personalizados
   template:
-    src:  mag/
-    dest: /etc/nginx/
+    src:  nginx.conf
+    dest: /etc/nginx/magento.conf
 
 - name: Ativando Vhost
   file:
@@ -27,8 +27,8 @@
   file:
     path: "{{ diretorio_site }}"
     state: directory
-    owner: "{{ user }}"
-    group: "{{ group }}"
+    owner: www-data #"{{ user }}"
+    group: www-data #"{{ group }}"
 
 - name: Remocao Vhost Default
   file:
