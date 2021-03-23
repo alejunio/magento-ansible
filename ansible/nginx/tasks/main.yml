@@ -7,14 +7,19 @@
     name: nginx
     state: present
 
-- name: Configurando Vhost
-  template:
-    src: mag.conf
-    dest: /etc/nginx/sites-available/{{ dominio_site }}.conf
-
 - name: Arquivos de Configuracao Personalizados
   template:
     src:  nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: Configurando Vhost
+  template:
+    src: mag.vhost
+    dest: /etc/nginx/sites-available/{{ dominio_site }}.conf
+
+- name: Configuracoes Magento Vhost Personalizado
+  template:
+    src: magento.conf
     dest: /etc/nginx/magento.conf
 
 - name: Ativando Vhost
