@@ -2,10 +2,9 @@
   become: true
   roles:
     - mysql
-    - nginx
     - php
-    - wordpress
-    - ssl-certbot
+    - composer
+    - nginx
   
   # Variaveis personalizaveis
   # Definicao de dominio, email, usuarios 
