@@ -1,0 +1,27 @@
+
+
+- name: Install PHP
+  apt: name={{item}} state=present
+  loop:
+    - {{php-version}}
+    - {{php-version}}-fpm
+    - {{php-version}}-bcmath
+    - {{php-version}}-ctype
+    - {{php-version}}-curl
+    - {{php-version}}-dom
+    - {{php-version}}-gd
+    - {{php-version}}-hash
+    - {{php-version}}-iconv
+    - {{php-version}}-intl
+    - {{php-version}}-mbstring
+    - {{php-version}}-openssl
+    - {{php-version}}-pdo_mysql
+    - {{php-version}}-soap
+    - {{php-version}}-xsl
+    - {{php-version}}-zip
+    - {{php-version}}-sockets
+    - {{php-version}}-redis
+    - {{php-version}}-memcached
+
+
+       

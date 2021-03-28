@@ -1,0 +1,49 @@
+---
+
+
+# PHP-FPM configuration.
+php_enable_php_fpm: false
+php_fpm_state: started
+php_fpm_handler_state: restarted
+php_fpm_enabled_on_boot: true
+php_fpm_listen: "127.0.0.1:9000"
+php_fpm_listen_allowed_clients: "127.0.0.1"
+php_fpm_pm_max_children: 50
+php_fpm_pm_start_servers: 5
+php_fpm_pm_min_spare_servers: 5
+php_fpm_pm_max_spare_servers: 5
+
+# The executable to run when calling PHP from the command line.
+php_executable: "php"
+
+# OpCache settings.
+php_opcache_zend_extension: "opcache.so"
+php_opcache_enable: "1"
+php_opcache_enable_cli: "0"
+php_opcache_memory_consumption: "96"
+php_opcache_interned_strings_buffer: "16"
+php_opcache_max_accelerated_files: "4096"
+php_opcache_max_wasted_percentage: "5"
+php_opcache_validate_timestamps: "1"
+php_opcache_revalidate_path: "0"
+php_opcache_revalidate_freq: "2"
+php_opcache_max_file_size: "0"
+php_opcache_blacklist_filename: ""
+
+
+php_memory_limit: "2MG"
+php_max_execution_time: "1800"
+php_max_input_time: "600"
+php_max_input_vars: "2000"
+php_realpath_cache_size: "32K"
+
+php_file_uploads: "On"
+php_upload_max_filesize: "100M"
+php_max_file_uploads: "20"
+
+php_post_max_size: "100M"
+php_date_timezone: "America/Sao_Paulo"
+php_allow_url_fopen: "On"
+
+
+

@@ -3,6 +3,7 @@
   roles:
     - mysql
     - php
+    - php-v
     - composer
     - nginx
   
