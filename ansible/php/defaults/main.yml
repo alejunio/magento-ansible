@@ -4,7 +4,7 @@
 php_enablerepo: ""
 
 # Extra packages to install (in addition to distro-specific default lists).
-php_packages_extra: [php7.3-mysql,php7.3-intl,php7.3-bcmath,php7.3-soap,php7.3-zip]
+php_packages_extra: [php7.4,php7.4-fpm,php7.4-soap,php7.4-mysql,php7.4-intl,php7.4-bcmath,php7.4-soap,php7.4-zip]
 
 # Default PHP version to install on Debian-based OSes (OS-specific).
 # php_default_version_debian: ""
