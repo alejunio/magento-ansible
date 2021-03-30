@@ -11,16 +11,28 @@
   template:
     src:  nginx.conf
     dest: /etc/nginx/nginx.conf
+- name: Security
+  template:
+    src:  security.conf
+    dest: /etc/nginx/security.conf
+- name: general.conf
+  template:
+    src:  general.conf
+    dest: /etc/nginx/general.conf
+- name: Configuracoes Magento Vhost Personalizado
+  template:
+    src: magento.conf
+    dest: /etc/nginx/magento.conf
+- name: PHP Fastcgi
+  template:
+    src: php_fastcgi.conf
+    dest: /etc/nginx/php_fastcgi.conf
 
 - name: Configurando Vhost
   template:
     src: mag.vhost
     dest: /etc/nginx/sites-available/{{ dominio_site }}.conf
 
-- name: Configuracoes Magento Vhost Personalizado
-  template:
-    src: magento.conf
-    dest: /etc/nginx/magento.conf
 
 - name: Ativando Vhost
   file:

@@ -6,13 +6,13 @@ mysql_root_password: senharoot
 
 # Configuracoes Loja
 dominio_site: site.com.br
-diretorio_site: /var/www/{{ dominio_site }}/public_html
+diretorio_site: /var/www/{{ dominio_site }}
 email: exemplo@email.com
 diretorio_ssl: /etc/letsencrypt/{{ dominio_site }}
 
 # User sftp
-user: lojaexemplo
-group: lojaexemplo
+user_mag: lojaexemplo
+group_mag: lojaexemplo
 
 # Addons  y=sim n=nao 
 ssl: y
