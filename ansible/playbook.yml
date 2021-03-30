@@ -16,12 +16,17 @@
         home: "{{ diretorio_site }}"
         append: yes
 #        uid: 
-        ssh_key_file: .ssh/id_rsa
 
     # Composer
     - name: Instalacao Composer
-      run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    
+      shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - name: Instalacao Composer
+      ansible.builtin.shell:
+        cmd: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+       # chdir: somedir/er
+
+
+
       # Elasticsearch
     - name: Instalacao Elasticsearch
       run: wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - /
