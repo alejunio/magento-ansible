@@ -1,2 +1,2 @@
 - name: php
-  service: name=*-fpm state=restarted
+  service: name=php{{ versao_php }}-fpm state=restarted

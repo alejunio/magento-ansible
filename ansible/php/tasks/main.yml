@@ -8,7 +8,7 @@
   ansible.builtin.apt_repository:
     repo: 'ppa:ondrej/php'
   
-- name: Instalando PHP: {{ versao_php }}
+- name: Instalando PHP
   apt:
     name:
       - php{{ versao_php }}
@@ -36,16 +36,20 @@
       - php{{ versao_php }}-opcache
     state: latest
     update_cache: true
-  notify: php
+  
 
 
-- name: Configurando PHP.INI  
-  template:
-    src: php.ini
-    dest: /etc/php/7.4/fpm/php.ini
+- copy:
+    src: ./php.ini
+    dest: /etc/php/7.4/fpm/php-mag.ini
+    owner: root
+    group: root
           
 - name: Configurando POOL FPM 
   template:
-    src: mag-pool.conf
+    src: ./mag-pool.conf
     dest: /etc/php/{{ versao_php }}/fpm/pool.d/mag-pool.conf
   notify: restart php
+
+
+    
