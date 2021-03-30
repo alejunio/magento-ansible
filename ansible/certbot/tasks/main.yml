@@ -1,5 +1,3 @@
 ---
 - name: Instalacao SSL Dominio
-  shell: certbot --nginx -d {{ dominio_site }} --non-interactive --agree-tos -m {{ email }}
-- name: Restart PHP
-  shell: /etc/init.d/*-fpm restart
+  shell: certbot --nginx -d www."{{ dominio_site }}" -d "{{ dominio_site }}" --non-interactive --agree-tos -m {{ email }}
