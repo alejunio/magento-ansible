@@ -17,6 +17,14 @@
         append: yes
 #        uid: 
 
+    # Restart PHP
+    - name: Restart PHP
+      shell: /etc/init.d/php{{versao_php}}-fpm restart
+
+    # Restart Nginx
+    - name: Restart Nginx
+      shell: /etc/init.d/nginx restart
+
     # Composer
     - name: Instalacao Composer
       shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -29,7 +37,7 @@
         echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list
         apt-get update && apt-get install elasticsearch -y
         systemctl start elasticsearch.service && systemctl enable elasticsearch.service
-  
+    #lembrar de otimizar -Xms1G -Xmx2G no arquivo jvm.options
   
   
   # Variaveis personalizaveis
