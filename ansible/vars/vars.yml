@@ -18,5 +18,7 @@ group: lojaexemplo
 ssl: y
 install_magento2: y
 
+#VersaoPHPDefault
+versao_php: "7.4"
 
-
+diretorio_projeto: "$PWD"
