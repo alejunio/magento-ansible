@@ -1,18 +1,22 @@
-# Credenciais MySQL
+# Credenciais Banco de Dados MySQL
 db_user: user
 db_user_password: 654321
 db_name: db-default
 mysql_root_password: senharoot
 
-# Informações Loja
+# Configuracoes Loja
 dominio_site: site.com.br
 diretorio_site: /var/www/{{ dominio_site }}/public_html
 email: exemplo@email.com
+diretorio_ssl: /etc/letsencrypt/{{ dominio_site }}
 
-# Usuario Projeto
+# User sftp
 user: lojaexemplo
 group: lojaexemplo
 
+# Addons  y=sim n=nao 
+ssl: y
+install_magento2: y
 
-# SSL
-diretorio_ssl: /etc/letsencrypt/{{ dominio_site }}
+
+

@@ -1,81 +1,51 @@
----
-# Variable setup.
-- name: Include distribution and version-specific vars.
-  include_vars: "{{ item }}"
-  with_first_found:
-    - files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-      skip: true
 
-- name: Set the default PHP version for Debian-based OSes.
-  set_fact:
-    php_default_version_debian: "{{ __php_default_version_debian }}"
-  when: php_default_version_debian is not defined and ansible_os_family == 'Debian'
+- name: Pacotes Basicos
+  apt:
+    name: software-properties-common
+    state: present 
 
-- name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
+- name: Add Repositorio PHP 
+  ansible.builtin.apt_repository:
+    repo: 'ppa:ondrej/php'
+  
+- name: Instalando PHP: {{ versao_php }}
+  apt:
+    name:
+      - php{{ versao_php }}
+      - php{{ versao_php }}-fpm
+      - php{{ versao_php }}-common
+      - php{{ versao_php }}-mysql
+      - php{{ versao_php }}-gmp
+      - php{{ versao_php }}-curl
+      - php{{ versao_php }}-intl
+      - php{{ versao_php }}-mbstring
+      - php{{ versao_php }}-xmlrpc
+      - php{{ versao_php }}-gd
+      - php{{ versao_php }}-xml
+      - php{{ versao_php }}-cli
+      - php{{ versao_php }}-zip
+      - php{{ versao_php }}-bcmath
+      - php{{ versao_php }}-ctype
+      - php{{ versao_php }}-dom
+      - php{{ versao_php }}-iconv
+      - php{{ versao_php }}-simplexml
+      - php{{ versao_php }}-soap
+      - php{{ versao_php }}-xsl
+      - php{{ versao_php }}-sockets
+      - php{{ versao_php }}-redis
+      - php{{ versao_php }}-opcache
+    state: latest
+    update_cache: true
+  notify: php
 
-- name: Define php_packages.
-  set_fact:
-    php_packages: "{{ __php_packages | list }}"
-  when: php_packages is not defined
 
-- name: Define php_webserver_daemon.
-  set_fact:
-    php_webserver_daemon: "{{ __php_webserver_daemon }}"
-  when: php_webserver_daemon is not defined
-
-- name: Define php_conf_paths.
-  set_fact:
-    php_conf_paths: "{{ __php_conf_paths }}"
-  when: php_conf_paths is not defined
-
-- name: Define php_extension_conf_paths.
-  set_fact:
-    php_extension_conf_paths: "{{ __php_extension_conf_paths }}"
-  when: php_extension_conf_paths is not defined
-
-- name: Define php_apc_conf_filename.
-  set_fact:
-    php_apc_conf_filename: "{{ __php_apc_conf_filename }}"
-  when: php_apc_conf_filename is not defined
-
-- name: Define php_opcache_conf_filename (Ubuntu 16.04).
-  set_fact:
-    php_opcache_conf_filename: "10-opcache.ini"
-  when: php_opcache_conf_filename is not defined and ansible_distribution_version == "16.04"
-
-- name: Define php_opcache_conf_filename.
-  set_fact:
-    php_opcache_conf_filename: "{{ __php_opcache_conf_filename }}"
-  when: php_opcache_conf_filename is not defined
-
-- name: Define php_fpm_conf_path.
-  set_fact:
-    php_fpm_conf_path: "{{ __php_fpm_conf_path }}"
-  when: php_fpm_conf_path is not defined
-
-# Setup/install tasks.
-- include_tasks: setup-RedHat.yml
-  when:
-    - not php_install_from_source
-    - ansible_os_family == 'RedHat'
-
-- include_tasks: setup-Debian.yml
-  when:
-    - not php_install_from_source
-    - ansible_os_family == 'Debian'
-
-# Install PHP from source when php_install_from_source is true.
-- include_tasks: install-from-source.yml
-  when: php_install_from_source
-
-# Cliente p/ Conexao MySQL
-- name: cliente de conexao mysql
-  shell: apt install mysql-client -y
-
-# Configure PHP.
-- include_tasks: configure.yml
-- include_tasks: configure-apcu.yml
-- include_tasks: configure-opcache.yml
-- include_tasks: configure-fpm.yml
+- name: Configurando PHP.INI  
+  template:
+    src: php.ini
+    dest: /etc/php/7.4/fpm/php.ini
+          
+- name: Configurando POOL FPM 
+  template:
+    src: mag-pool.conf
+    dest: /etc/php/{{ versao_php }}/fpm/pool.d/mag-pool.conf
+  notify: restart php

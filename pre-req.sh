@@ -36,3 +36,9 @@ ln -s /snap/bin/certbot /usr/bin/certbot
 add-apt-repository --yes --update ppa:ondrej/php
 apt-get update
 
+# Composer
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
+
+# Mudar PHP default
+update-alternatives --set php /usr/bin/php5.6

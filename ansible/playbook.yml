@@ -3,11 +3,38 @@
   roles:
     - mysql
     - php
-    - php-v
-    - composer
     - nginx
-  
+    - certbot 
+
+  tasks:    
+    # Usuario Default
+    - name: Configuracao Usuario Shell Loja
+      ansible.builtin.user:
+        name: "{{ user }}"
+        shell: /bin/bash
+        groups: www-data,sudo
+        home: "{{ diretorio_site }}"
+        append: yes
+#        uid: 
+        ssh_key_file: .ssh/id_rsa
+
+    # Composer
+    - name: Instalacao Composer
+      run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    
+      # Elasticsearch
+    - name: Instalacao Elasticsearch
+      run: wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - /
+           apt-get install apt-transport-https -y /
+           echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list /
+           apt-get update && apt-get install elasticsearch -y
+           systemctl start elasticsearch.service && systemctl enable elasticsearch.service
+
+
   # Variaveis personalizaveis
   # Definicao de dominio, email, usuarios 
   vars_files:
-    - /home/projeto/ansible/vars/vars.yml
+    - /home/projeto/vars/vars.yml
+
+
+    

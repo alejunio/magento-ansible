@@ -1,4 +1,0 @@
-
-
-- name: Instalacao Composer
-  exec: composer.sh 
