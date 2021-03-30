@@ -33,7 +33,6 @@
     src: mag.vhost
     dest: /etc/nginx/sites-available/{{ dominio_site }}.conf
 
-
 - name: Ativando Vhost
   file:
     src: /etc/nginx/sites-available/{{ dominio_site }}.conf
@@ -56,4 +55,7 @@
   file:
     path: /etc/nginx/sites-available/default 
     state: absent
+
+- name: Gerando dhparam
+  shell: openssl dhparam -out /etc/nginx/dhparam.pem 2048
 
