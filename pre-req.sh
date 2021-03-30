@@ -31,14 +31,3 @@ cd /etc/ansible/ && rm hosts && wget https://raw.githubusercontent.com/alejunio/
 snap install core
 snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
-
-# Repositorio Ondrej/PHP
-add-apt-repository --yes --update ppa:ondrej/php
-apt-get update
-
-# Composer
-curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-
-
-# Mudar PHP default
-update-alternatives --set php /usr/bin/php5.6
