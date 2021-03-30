@@ -8,7 +8,7 @@ mysql_root_password: senharoot
 dominio_site: site.com.br
 diretorio_site: /var/www/{{ dominio_site }}
 email: exemplo@email.com
-diretorio_ssl: /etc/letsencrypt/{{ dominio_site }}
+diretorio_ssl: /etc/letsencrypt/live/{{ dominio_site }}
 
 # User sftp
 user_mag: lojaexemplo
