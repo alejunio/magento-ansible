@@ -30,4 +30,5 @@ cd /etc/ansible/ && rm hosts && wget https://raw.githubusercontent.com/alejunio/
 # Instalacao Certbot SSL
 snap install core
 snap install --classic certbot
+apt install python-certbot-nginx -y
 ln -s /snap/bin/certbot /usr/bin/certbot
