@@ -7,37 +7,46 @@
     - nginx
 
   tasks:  
-    # Usuario Default
-    - name: Configuracao Usuario Shell Loja
+    # Configuracao de Usuario Linux Magento e Permissoes
+    - name: Usuario Shell
       ansible.builtin.user:
-        name: "{{ user }}"
+        name: "{{ user_mag }}"
         shell: /bin/bash
         groups: www-data,sudo
         home: "{{ diretorio_site }}"
         append: yes
-#        uid: 
+    - name: Permissoes
+      shell: chown -R {{ user_mag }}:{{ group_mag }} {{ diretorio_site }}
 
     # Restart PHP
     - name: Restart PHP
-      shell: /etc/init.d/php{{versao_php}}-fpm restart
+      shell: /etc/init.d/php{{versao_php}}-fpm restart #Lembrar testsar variavel
 
     # Restart Nginx
     - name: Restart Nginx
-      shell: /etc/init.d/nginx restart
+      shell: /etc/init.d/nginx restart #Lembrar testsar variavel
 
     # Composer
-    - name: Instalacao Composer
+    - name: Verificando Composer
+      stat: path=/usr/bin/compose
+      register: stat_result
+    - name: Install Composer 
       shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      when: not stat_result.stat.exists
     
     # Elasticsearch
-    - name: Install elasticsearch
+    - name: Verificando Elasticsearch
+      stat: path=/etc/elasticsearch/elasticsearch.yml
+      register: stat_result
+    - name: Install Elasticsearch 
       shell: |
-        wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-        apt-get install apt-transport-https -y
-        echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list
-        apt-get update && apt-get install elasticsearch -y
-        systemctl start elasticsearch.service && systemctl enable elasticsearch.service
-    #lembrar de otimizar -Xms1G -Xmx2G no arquivo jvm.options
+            wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+            apt-get install apt-transport-https -y
+            echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list
+            apt-get update && apt-get install elasticsearch -y
+            systemctl start elasticsearch.service && systemctl enable elasticsearch.service
+            #lembrar de otimizar -Xms1G -Xmx2G no arquivo jvm.options 
+      when: not stat_result.stat.exists
   
   
   # Variaveis personalizaveis
