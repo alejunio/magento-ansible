@@ -6,8 +6,8 @@ server {
     root                $base/public_html;
 
     # SSL
-    ssl_certificate     /etc/letsencrypt/live/{{dominio_site}}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{dominio_site}}/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/www.{{dominio_site}}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.{{dominio_site}}/privkey.pem;
 
     # security
     include             /etc/nginx/security.conf;
@@ -38,8 +38,8 @@ server {
     server_name         .{{dominio_site}};
 
     # SSL
-    ssl_certificate     /etc/letsencrypt/live/{{dominio_site}}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{dominio_site}}/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/www.{{dominio_site}}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.{{dominio_site}}/privkey.pem;
     return              301 https://www.{{dominio_site}}$request_uri;
 }
 
