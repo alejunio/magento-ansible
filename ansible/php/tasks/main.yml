@@ -44,12 +44,9 @@
     dest: /etc/php/7.4/fpm/php-mag.ini
     owner: root
     group: root
-          
-- name: Configurando POOL FPM 
-  template:
-    src: ./mag-pool.conf
-    dest: /etc/php/{{ versao_php }}/fpm/pool.d/mag-pool.conf
-    notify: restart php
-
-
     
+- copy:
+    src: ./magento.conf
+    dest: /etc/php/{{ versao_php }}/fpm/pool.d/magento.conf
+    owner: root
+    group: root   
