@@ -11,18 +11,22 @@
   template:
     src:  nginx.conf
     dest: /etc/nginx/nginx.conf
+    
 - name: Security
   template:
     src:  security.conf
     dest: /etc/nginx/security.conf
+
 - name: general.conf
   template:
     src:  general.conf
     dest: /etc/nginx/general.conf
+
 - name: Configuracoes Magento Vhost Personalizado
   template:
     src: magento.conf
     dest: /etc/nginx/magento.conf
+
 - name: PHP Fastcgi
   template:
     src: php_fastcgi.conf
@@ -56,6 +60,10 @@
     path: /etc/nginx/sites-available/default 
     state: absent
 
-- name: Gerando dhparam
-  shell: openssl dhparam -out /etc/nginx/dhparam.pem 2048
+- name: Verificando se existe dhparam
+  stat: path=/etc/nginx/dhparam.pem
+  register: stat_result
 
+- name: instalando dhparam
+  shell: openssl dhparam -out /etc/nginx/dhparam.pem 2048
+  when: not stat_result.stat.exists
