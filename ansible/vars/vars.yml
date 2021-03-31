@@ -22,3 +22,8 @@ install_magento2: y
 versao_php: "7.4"
 
 diretorio_projeto: "$PWD"
+
+# Restart Services
+php_restart: "/etc/init.d/php{{versao_php}}-fpm restart"
+nginx_restart: "/etc/init.d/nginx restart"
+mysql_restart: "/etc/init.d/mysql restart"
